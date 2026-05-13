@@ -6,7 +6,7 @@
     <title>Lời Nhắc Gửi Tường</title>
     <style>
         body {
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #1a1c29 0%, #2a2d42 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -16,45 +16,106 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
         }
         .container {
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             text-align: center;
             max-width: 450px;
             width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+        .img-wrapper {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         img {
             width: 100%;
             height: auto;
-            border-radius: 15px;
+            display: block;
             object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
         h1 {
-            color: #e63946;
-            font-size: 24px;
+            color: #ffb703;
+            font-size: 26px;
             margin: 25px 0;
-            line-height: 1.4;
+            line-height: 1.5;
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+        }
+        .icon-row {
+            font-size: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            animation: pulse 1.5s infinite alternate;
         }
         audio {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 15px;
+            border-radius: 30px;
+        }
+        /* Hiệu ứng bong bóng icon bay */
+        .falling-icon {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="anh-tuong.jpg" alt="Ảnh Tường">
-    <h1>Tường ơi, nấu cơm ăn đi nhé 🍚</h1>
+    <div class="icon-row">📢 🔥 ⏱️</div>
+    <div class="img-wrapper">
+        <img src="anh-tuong.jpg" alt="Ảnh Tường">
+    </div>
+    <h1>✨ Tường ơi, nấu cơm ăn đi nhé! 🍚🥢🍳</h1>
+    <div class="icon-row">🍗 🍕 🍔 🍟</div>
     <audio controls autoplay>
         <source src="nhac.mp3" type="audio/mpeg">
         Trình duyệt không hỗ trợ nghe nhạc.
     </audio>
 </div>
+
+<script>
+    // Tự động tạo hiệu ứng mưa icon đồ ăn
+    const icons = ['🍚', '🥢', '🍳', '🍗', '🍕', '🍔', '🍟', '🍜', '🍣', '🍲'];
+    function createFallingIcon() {
+        const icon = document.createElement('div');
+        icon.classList.add('falling-icon');
+        icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+        icon.style.left = Math.random() * 100 + 'vw';
+        icon.style.animationDuration = Math.random() * 3 + 4 + 's'; // từ 4-7 giây
+        icon.style.opacity = Math.random() * 0.6 + 0.4;
+        icon.style.fontSize = Math.random() * 15 + 20 + 'px';
+        document.body.appendChild(icon);
+        setTimeout(() => { icon.remove(); }, 7000);
+    }
+    setInterval(createFallingIcon, 400); // 0.4 giây xuất hiện 1 icon
+</script>
 
 </body>
 </html>
