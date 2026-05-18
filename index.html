@@ -6,7 +6,6 @@
     <title>Lời Nhắc Gửi Tường</title>
     <style>
         body {
-            /* Màu nền Gradient tối giản, sâu lắng và rất thu hút */
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -37,7 +36,7 @@
             position: relative;
             max-width: 160px; 
             margin: 0 auto;
-            border-radius: 50%; /* Cắt ảnh thành hình tròn avatar cute */
+            border-radius: 50%;
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             aspect-ratio: 1 / 1;
@@ -50,10 +49,11 @@
         }
         h1 {
             color: #ffb703;
-            font-size: 22px;
+            font-size: 24px; /* Tăng cỡ chữ lên một chút cho đẹp */
             margin: 20px 0;
             line-height: 1.4;
-            font-weight: 600;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.2);
         }
         .icon-row {
             font-size: 24px;
@@ -70,7 +70,7 @@
             opacity: 0.8;
         }
         
-        /* 🌸 HIỆU ỨNG CHỮ VÀ ICON BAY LÊN (THAY THẾ MƯA ĐỒ ĂN) */
+        /* HIỆU ỨNG CHỮ BONG BÓNG BAY LÊN */
         .floating-text {
             position: absolute;
             bottom: -60px;
@@ -78,10 +78,10 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
             color: #ffffff;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 500;
             white-space: nowrap;
             user-select: none;
@@ -99,10 +99,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.85;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.85;
             }
             100% {
                 transform: translateY(-110vh) scale(1);
@@ -120,7 +120,8 @@
         <img src="anh-tuong.jpg" alt="Ảnh Tường">
     </div>
     
-    <h1>Tường ơi, nấu cơm ăn đi nhé! 🍚🥢</h1>
+    <!-- Đổi tiêu đề chính theo ý bạn -->
+    <h1>Tường ơi nhớ nhé ✨</h1>
     
     <div class="icon-row">❤️ 🌸 💞 💌</div>
     
@@ -132,7 +133,7 @@
 </div>
 
 <script>
-    // Tự động phát nhạc ngay khi người dùng chạm vào bất kỳ đâu trên màn hình
+    // Tự động phát nhạc khi tương tác màn hình
     const audio = document.getElementById('myAudio');
     function playMusic() {
         audio.play().catch(error => console.log("Chờ người dùng tương tác"));
@@ -140,18 +141,14 @@
     document.addEventListener('click', playMusic);
     document.addEventListener('touchstart', playMusic);
 
-    // Danh sách câu nhắc nhở và icon cute hợp lý
+    /* CÀI ĐẶT ĐÚNG 6 CÂU NHẮC NHỞ CỦA BẠN KÈM ICON HỢP LÝ */
     const reminders = [
-        { text: "Đi đường cẩn thận nhé", icon: "🛵" },
-        { text: "Ăn cơm đúng bữa nha", icon: "🍚" },
-        { text: "Lúc nào cũng phải vui vẻ", icon: "☀️" },
-        { text: "Không được cáu gắt với Ngọc Linh Cuteeee đâu đấy", icon: "😤" },
-        { text: "Ngọc Linh đang theo dõi đó nha", icon: "👀" },
-        { text: "Yêu Tường nhất luôn", icon: "🥰" },
-        { text: "Ngoan ngoãn ăn cơm đi nào", icon: "🧸" },
-        { text: "Đừng lười biếng nhớ chưa", icon: "🌸" },
-        { text: "Tường ơi cố lên", icon: "💪" },
-        { text: "Bắn tim cho Tường nè", icon: "❤️" }
+        { text: "Tường đi đường cẩn thận nhé", icon: "🛵" },
+        { text: "Đừng cáu gắt với Ngọc Linh nhó", icon: "🥺" },
+        { text: "Yêu thương chính bản thân mình nhé", icon: "❤️" },
+        { text: "Không được bỏ bữa nè", icon: "🍚" },
+        { text: "Chơi thể thao nhiều hơn", icon: "⚽" },
+        { text: "Không được buồn đâu nhé", icon: "☀️" }
     ];
 
     function createFloatingReminder() {
@@ -159,24 +156,19 @@
         
         const div = document.createElement('div');
         div.classList.add('floating-text');
-        
-        // Cấu trúc: Chữ trước + Icon cute đi kèm phía sau
         div.innerHTML = `<span>${item.text}</span> <span>${item.icon}</span>`;
         
-        // Random vị trí xuất hiện theo chiều ngang
-        div.style.left = Math.random() * 80 + 5 + 'vw';
-        
-        // Random thời gian bay (từ 6 đến 9 giây) để các câu không bay đều nhau quá
+        // Căn chỉnh khoảng cách xuất hiện để không bị dính sát lề màn hình
+        div.style.left = Math.random() * 70 + 8 + 'vw';
         div.style.animationDuration = Math.random() * 3 + 6 + 's';
         
         document.body.appendChild(div);
         
-        // Xóa thẻ sau khi đã bay khuất màn hình
         setTimeout(() => { div.remove(); }, 9000);
     }
     
-    // Cứ mỗi 1.5 giây sẽ có 1 câu nhắc nhở đáng yêu bay lên
-    setInterval(createFloatingReminder, 1500);
+    // Xuất hiện đều đặn mỗi 1.6 giây một câu
+    setInterval(createFloatingReminder, 1600);
 </script>
 
 </body>
