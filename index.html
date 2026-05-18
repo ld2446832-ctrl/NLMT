@@ -6,7 +6,8 @@
     <title>Lời Nhắc Gửi Tường</title>
     <style>
         body {
-            background: linear-gradient(135deg, #1a1c29 0%, #2a2d42 100%);
+            /* Màu nền Gradient tối giản, sâu lắng và rất thu hút */
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -20,77 +21,108 @@
             position: relative;
         }
         .container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 30px 24px;
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            max-width: 450px;
+            max-width: 380px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             z-index: 10;
         }
         .img-wrapper {
             position: relative;
-            border-radius: 18px;
+            max-width: 160px; 
+            margin: 0 auto;
+            border-radius: 50%; /* Cắt ảnh thành hình tròn avatar cute */
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            aspect-ratio: 1 / 1;
         }
         img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
             object-fit: cover;
         }
         h1 {
             color: #ffb703;
-            font-size: 26px;
-            margin: 25px 0;
-            line-height: 1.5;
-            text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+            font-size: 22px;
+            margin: 20px 0;
+            line-height: 1.4;
+            font-weight: 600;
         }
         .icon-row {
-            font-size: 30px;
+            font-size: 24px;
             margin-bottom: 15px;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            animation: pulse 1.5s infinite alternate;
+            gap: 12px;
+            opacity: 0.9;
         }
         audio {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             border-radius: 30px;
+            opacity: 0.8;
         }
-        .falling-icon {
+        
+        /* 🌸 HIỆU ỨNG CHỮ VÀ ICON BAY LÊN (THAY THẾ MƯA ĐỒ ĂN) */
+        .floating-text {
             position: absolute;
-            top: -50px;
-            font-size: 24px;
+            bottom: -60px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
             user-select: none;
             pointer-events: none;
-            animation: fall linear forwards;
+            animation: floatUp ease-in-out forwards;
             z-index: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); }
-        }
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.08); }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="icon-row">📢 🔥 ⏱️</div>
+    <div class="icon-row">✨ 🧸 🥰</div>
+    
     <div class="img-wrapper">
         <img src="anh-tuong.jpg" alt="Ảnh Tường">
     </div>
-    <h1>✨ Tường ơi, nấu cơm ăn đi nhé! 🍚🥢🍳</h1>
-    <div class="icon-row">🍗 🍕 🍔 🍟</div>
+    
+    <h1>Tường ơi, nấu cơm ăn đi nhé! 🍚🥢</h1>
+    
+    <div class="icon-row">❤️ 🌸 💞 💌</div>
     
     <!-- Thanh phát nhạc -->
     <audio id="myAudio" controls loop>
@@ -108,20 +140,43 @@
     document.addEventListener('click', playMusic);
     document.addEventListener('touchstart', playMusic);
 
-    // Hiệu ứng mưa icon đồ ăn
-    const icons = ['🍚', '🥢', '🍳', '🍗', '🍕', '🍔', '🍟', '🍜', '🍣', '🍲'];
-    function createFallingIcon() {
-        const icon = document.createElement('div');
-        icon.classList.add('falling-icon');
-        icon.innerText = icons[Math.floor(Math.random() * icons.length)];
-        icon.style.left = Math.random() * 100 + 'vw';
-        icon.style.animationDuration = Math.random() * 3 + 4 + 's';
-        icon.style.opacity = Math.random() * 0.6 + 0.4;
-        icon.style.fontSize = Math.random() * 15 + 20 + 'px';
-        document.body.appendChild(icon);
-        setTimeout(() => { icon.remove(); }, 7000);
+    // Danh sách câu nhắc nhở và icon cute hợp lý
+    const reminders = [
+        { text: "Đi đường cẩn thận nhé", icon: "🛵" },
+        { text: "Ăn cơm đúng bữa nha", icon: "🍚" },
+        { text: "Lúc nào cũng phải vui vẻ", icon: "☀️" },
+        { text: "Không được cáu gắt với Ngọc Linh Cuteeee đâu đấy", icon: "😤" },
+        { text: "Ngọc Linh đang theo dõi đó nha", icon: "👀" },
+        { text: "Yêu Tường nhất luôn", icon: "🥰" },
+        { text: "Ngoan ngoãn ăn cơm đi nào", icon: "🧸" },
+        { text: "Đừng lười biếng nhớ chưa", icon: "🌸" },
+        { text: "Tường ơi cố lên", icon: "💪" },
+        { text: "Bắn tim cho Tường nè", icon: "❤️" }
+    ];
+
+    function createFloatingReminder() {
+        const item = reminders[Math.floor(Math.random() * reminders.length)];
+        
+        const div = document.createElement('div');
+        div.classList.add('floating-text');
+        
+        // Cấu trúc: Chữ trước + Icon cute đi kèm phía sau
+        div.innerHTML = `<span>${item.text}</span> <span>${item.icon}</span>`;
+        
+        // Random vị trí xuất hiện theo chiều ngang
+        div.style.left = Math.random() * 80 + 5 + 'vw';
+        
+        // Random thời gian bay (từ 6 đến 9 giây) để các câu không bay đều nhau quá
+        div.style.animationDuration = Math.random() * 3 + 6 + 's';
+        
+        document.body.appendChild(div);
+        
+        // Xóa thẻ sau khi đã bay khuất màn hình
+        setTimeout(() => { div.remove(); }, 9000);
     }
-    setInterval(createFallingIcon, 400);
+    
+    // Cứ mỗi 1.5 giây sẽ có 1 câu nhắc nhở đáng yêu bay lên
+    setInterval(createFloatingReminder, 1500);
 </script>
 
 </body>
