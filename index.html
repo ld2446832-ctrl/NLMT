@@ -63,11 +63,13 @@
             gap: 12px;
             opacity: 0.9;
         }
-        audio {
+        
+        /* Cấu hình khung hiển thị video */
+        video {
             width: 100%;
             margin-top: 10px;
-            border-radius: 30px;
-            opacity: 0.8;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         /* HIỆU ỨNG CHỮ BONG BÓNG BAY LÊN */
@@ -124,21 +126,21 @@
     
     <div class="icon-row">❤️ 🌸 💞 💌</div>
     
-    <!-- Đường dẫn nhạc đã được mã hóa khoảng trắng thành %20 để chạy mượt mà trên web -->
-    <audio id="myAudio" controls loop>
-        <source src="Cứ%20Vội%20Vàng.mp3" type="audio/mpeg">
-        Trình duyệt không hỗ trợ nghe nhạc.
-    </audio>
+    <!-- Thay thế bằng trình phát video MP4 -->
+    <video id="myVideo" controls loop>
+        <source src="haolyrics_98_musicaldown.com_1779121580.mp4" type="video/mp4">
+        Trình duyệt không hỗ trợ xem video.
+    </video>
 </div>
 
 <script>
-    // Tự động phát nhạc khi tương tác màn hình
-    const audio = document.getElementById('myAudio');
-    function playMusic() {
-        audio.play().catch(error => console.log("Chờ người dùng tương tác"));
+    // Tự động phát video khi tương tác màn hình
+    const video = document.getElementById('myVideo');
+    function playVideo() {
+        video.play().catch(error => console.log("Chờ người dùng tương tác"));
     }
-    document.addEventListener('click', playMusic);
-    document.addEventListener('touchstart', playMusic);
+    document.addEventListener('click', playVideo);
+    document.addEventListener('touchstart', playVideo);
 
     /* CÀI ĐẶT ĐÚNG 6 CÂU NHẮC NHỞ CỦA BẠN KÈM ICON HỢP LÝ */
     const reminders = [
